@@ -1,54 +1,27 @@
-const express = require("express")
-const app=("express")
+const express = require('express');
+const app = express();
+const port = 3000;
 
-app.use=("express.json")
+app.use(express.json());
 
-app.post("/username",async=>{
-    try {
-        if(username){
-            res.status(200)=(username)
-        
-        }
-    } catch (error) {
-        res.status(400)=("username cannot be empty")
-        
+app.get("/", (req, res) => {
+    res.send("Welcome to the server");
+});
+
+app.post("/signup", (req, res) => {
+    const { username, email, password, dateofbirth } = req.body;
+
+    if (!username) {
+        res.send("username cannot be empty");
+    } else if (!email) {
+        res.send("email cannot be empty");
+    } else if (password.length < 8 || password.length >= 16) {
+        res.send("password should be greater than 8 and less than 16");
+    } else {
+        res.send("Signup successful");
     }
-})
-app.post("/email",async=>{
-    try {
-        if(email){
-            res.status(200)=(email)
-        
-        }
-    } catch (error) {
-        res.status(400)=("email cannot be empty")
-        
-    }
-})    
+});
 
-app.post("/password",async=>{
-    try {
-        res.status(200)=(password)
-        
-    } catch (error) {
-        if(password>8||(password<16)){
-            res.status(400)=("password length should be greater than 8 or less than or equal to 16")
-        
-        }
-        else{
-            res.status(200)=("password")
-        }
-        
-    }
-})    
-
-
-let port=8080
-
-app.listen(port,async=>{
-    try {
-        res.send("server is running on" `$http:/localhost:8080`)
-    } catch (error) {
-        res.send("Internal server error")
-    }
-})
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}` );
+});
